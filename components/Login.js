@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { Alert, View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import CryptoJS from 'crypto-js';
+import { useCardNo } from '../Store/CardNoContext';
+
 
 export default function Login({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const { logStatus, setLogStatus } = useCardNo("");
+
+  
   const handleLogin = async () => {
     if (!username || !password) {
       Alert.alert('Error', 'Please enter both username and password.');
@@ -13,7 +18,7 @@ export default function Login({ navigation }) {
     }
 
     try {
-      const response = await fetch('http://125.209.66.227:8010/api/login/check_credentials/', {
+      const response = await fetch('http://10.10.100.4:8010/api/login/check_credentials/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,6 +31,9 @@ export default function Login({ navigation }) {
 
       const data = await response.json();
 
+      // console.log("Ccsdfsd", data);
+      
+
       if (data.encypt && data.picture && data.picture.CardNo) {
         const bytes = CryptoJS.AES.decrypt(data.encypt, 'Password@2022');
         const OrgPassword = bytes.toString(CryptoJS.enc.Utf8).trim();
@@ -33,9 +41,15 @@ export default function Login({ navigation }) {
         const cleanedOrgPassword = OrgPassword.replace(/"/g, '').trim(); 
 
         if ((parseInt(username) === parseInt(data.picture.CardNo)) && (password.trim() === cleanedOrgPassword)) {
-          Alert.alert('Success', 'Login successful');
+          setLogStatus(true);
+
+          if(logStatus === true){
+            Alert.alert('Success', 'Login successful');
           
-          navigation.navigate('Dashboard');
+            navigation.navigate('Dashboard');
+          }
+
+    
         } else {
           Alert.alert('Failed', 'Please enter the correct username and password!');
         }
@@ -89,7 +103,7 @@ export default function Login({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1, 
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,

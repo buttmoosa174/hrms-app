@@ -8,8 +8,8 @@ const Profile = () => {
                 source={{ uri: 'https://example.com/profile-picture.jpg' }} // Replace with actual image URL or local asset
                 style={styles.profileImage}
             />
-            <Text style={styles.name}>John Doe</Text>
-            <Text style={styles.email}>johndoe@example.com</Text>
+            <Text style={styles.name}>Khawaja Moosa</Text>
+            <Text style={styles.email}>khawajamoosa81@gmail.com</Text>
 
             <View style={styles.infoContainer}>
                 <Text style={styles.infoLabel}>Position:</Text>
@@ -21,7 +21,7 @@ const Profile = () => {
             </View>
             <View style={styles.infoContainer}>
                 <Text style={styles.infoLabel}>Location:</Text>
-                <Text style={styles.infoValue}>San Francisco, CA</Text>
+                <Text style={styles.infoValue}>da Sahowala Sialkot</Text>
             </View>
 
             <TouchableOpacity style={styles.button}>

@@ -1,24 +1,13 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useCardNo } from '../Store/CardNoContext';
 
-const Dashboard = ({ navigation }) => {
+const SelfService = ({ navigation }) => {
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
-
-    const { logStatus, setLogStatus } = useCardNo("");
-
-    console.log(logStatus);
-    
 
     const toggleSidebar = () => {
         setIsSidebarVisible(!isSidebarVisible);
     };
-
-    const Logout = () => {
-        setLogStatus(false);
-        navigation.navigate('Login');
-    }
 
     return (
         <View style={styles.container}>
@@ -35,15 +24,15 @@ const Dashboard = ({ navigation }) => {
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Tasks')}>
                         <Ionicons name="briefcase-outline" size={25} color="#fff" />
-                        <Text style={styles.sidebarItemText}>Password Management</Text>
+                        <Text style={styles.sidebarItemText}>Tasks</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Tasks')}>
-                        <Ionicons name="briefcase-outline" size={25} color="#fff" />
-                        <Text style={styles.sidebarItemText}>Password Management</Text>
+                    <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Notifications')}>
+                        <Ionicons name="notifications-outline" size={25} color="#fff" />
+                        <Text style={styles.sidebarItemText}>Notifications</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.sidebarItem} onPress={Logout}>
-                        <Ionicons name="briefcase-outline" size={25} color="#fff" />
-                        <Text style={styles.sidebarItemText}>Logout</Text>
+                    <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settings')}>
+                        <Ionicons name="settings-outline" size={25} color="#fff" />
+                        <Text style={styles.sidebarItemText}>Settings</Text>
                     </TouchableOpacity>
                 </View>
             )}
@@ -53,25 +42,22 @@ const Dashboard = ({ navigation }) => {
                 <TouchableOpacity style={styles.menuButton} onPress={toggleSidebar}>
                     <Ionicons name="menu-outline" size={35} color="#333" />
                 </TouchableOpacity>
-
-                <Text style={styles.title}>Dashboard</Text>
+                
+                <Text style={styles.title}>Self Service</Text>
                 <View style={styles.cardContainer}>
-                    <TouchableOpacity
-                        style={styles.card}
-                        onPress={() => navigation.navigate('Profile')}
-                    >
-                        <Ionicons name="person-outline" size={50} color="#4CAF50" />
-                        <Text style={styles.cardTitle}>Profile</Text>
+                    <TouchableOpacity  style={styles.card} onPress={() => navigation.navigate('MyInformation')}>
+                        <Ionicons name="information-circle-outline" size={50} color="#4CAF50" />
+                        <Text style={styles.cardTitle}>My Information</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.card}>
-                        <Ionicons name="briefcase-outline" size={50} color="#2196F3" />
-                        <Text style={styles.cardTitle}>Tasks</Text>
+                        <Ionicons name="cash-outline" size={50} color="#2196F3" />
+                        <Text style={styles.cardTitle}>Payroll</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.cardContainer}>
                     <TouchableOpacity style={styles.card}>
-                        <Ionicons name="notifications-outline" size={50} color="#FF9800" />
-                        <Text style={styles.cardTitle}>Notifications</Text>
+                        <Ionicons name="document-text-outline" size={50} color="#FF9800" />
+                        <Text style={styles.cardTitle}>Attendance</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.card}>
                         <Ionicons name="settings-outline" size={50} color="#9C27B0" />
@@ -81,14 +67,13 @@ const Dashboard = ({ navigation }) => {
             </View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'row',
         backgroundColor: '#f5f5f5',
-        position: 'relative'
     },
     sidebar: {
         width: 250,
@@ -149,4 +134,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Dashboard;
+export default SelfService;
